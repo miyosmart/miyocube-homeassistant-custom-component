@@ -1,0 +1,84 @@
+{
+  "title": "MIYO Cube",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add MIYO Cube",
+        "description": "Enter the IP address of the device and press the hardware button on the cube before proceeding."
+      },
+      "get_api_key": {
+        "title": "Add MIYO Cube",
+        "description": ""
+      }
+    },
+    "error": {
+      "no_host": "No host ip specified.",
+      "api_key_failed": "Connection failed. Make sure the device's IP address is correct and the button was pressed, then try again."    
+    }
+  },
+  "device": {
+    "valve": {
+      "name": "Valve: {id}"
+    },
+    "circuit" : {
+      "name": "Circuit: {id}"
+    },
+    "moistureOutdoor": {
+      "name": "Sensor: {id}"
+    }    
+  },
+  "entity": {
+    "sensor": {
+      "moisture": {
+        "name": "Moisture"
+      },
+      "temperature": {
+        "name": "Temperature"
+      },
+      "brightness": {
+        "name": "Brightness"
+      },
+      "solarVoltage": {
+        "name": "Solar Voltage"
+      },
+      "lastUpdate": {
+        "name": "Last Update"
+      },
+      "circuitName": {
+        "name": "Irrigation Circuit"
+      }
+    },
+    "switch": {
+      "automaticMode": {
+        "name": "Automatic Irrigation"
+      },
+      "valveStaggering": {
+        "name": "Valve Staggering"
+      }
+    },
+    "button": {
+      "startIrrigation": {
+        "name": "Start Irrigation"
+      },
+      "stopIrrigation": {
+        "name": "Stop Irrigation"
+      }
+    },
+    "number": {
+      "duration": {
+        "name": "Manual Irrigation Duration"
+      }
+    },
+    "binary_sensor": {
+      "irrigationWasStarted": {
+        "name": "Irrigation active"
+      },
+      "valveStatus": {
+        "name": "Valve Status"
+      },
+      "valve2Status": {
+        "name": "Valve 2 Status"
+      }
+    }
+  }
+}
