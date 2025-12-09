@@ -23,7 +23,7 @@
     "circuit" : {
       "name": "Circuit: {id}"
     },
-    "moistureOutdoor": {
+    "moisture_outdoor": {
       "name": "Sensor: {id}"
     }    
   },
@@ -38,29 +38,29 @@
       "brightness": {
         "name": "Brightness"
       },
-      "solarVoltage": {
+      "solar_voltage": {
         "name": "Solar Voltage"
       },
-      "lastUpdate": {
+      "last_update": {
         "name": "Last Update"
       },
-      "circuitName": {
+      "circuit_name": {
         "name": "Irrigation Circuit"
       }
     },
     "switch": {
-      "automaticMode": {
+      "automatic_mode": {
         "name": "Automatic Irrigation"
       },
-      "valveStaggering": {
+      "valve_staggering": {
         "name": "Valve Staggering"
       }
     },
     "button": {
-      "startIrrigation": {
+      "start_irrigation": {
         "name": "Start Irrigation"
       },
-      "stopIrrigation": {
+      "stop_irrigation": {
         "name": "Stop Irrigation"
       }
     },
@@ -70,13 +70,13 @@
       }
     },
     "binary_sensor": {
-      "irrigationWasStarted": {
+      "irrigation_was_started": {
         "name": "Irrigation active"
       },
-      "valveStatus": {
+      "valve_status": {
         "name": "Valve Status"
       },
-      "valve2Status": {
+      "valve2_status": {
         "name": "Valve 2 Status"
       }
     }

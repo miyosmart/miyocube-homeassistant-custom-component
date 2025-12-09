@@ -3,7 +3,7 @@ from homeassistant.components.number import NumberEntity
 from homeassistant.core import callback
 from homeassistant.const import UnitOfTime
 from .const import DOMAIN
-from .utils import convert_statetype_value
+from .utils import convert_statetype_value, camel_to_snake
 import logging
 import datetime
 
@@ -51,7 +51,7 @@ class MiyoSlider(NumberEntity):
 
         self._attr_unique_id    = f"{device_id}_{state}"
         self._attr_has_entity_name = True
-        self._attr_translation_key = state
+        self._attr_translation_key = camel_to_snake(state)
         
         self._attr_native_min_value = 1
         self._attr_native_max_value = 60
@@ -94,7 +94,7 @@ class MiyoSlider(NumberEntity):
         """Associate this entity with a HA device."""
         device_info = {
             "identifiers": {(DOMAIN, self._device_id)},
-            "translation_key": self._device_type,
+            "translation_key": camel_to_snake(self._device_type),
             "translation_placeholders": {"id": self._device_name},
             "manufacturer": "MIYO",
             "model": "Smart Irrigation"

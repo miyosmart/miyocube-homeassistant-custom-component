@@ -5,6 +5,7 @@ from homeassistant.helpers.entity_registry import async_get as async_get_entity_
 from .const import DOMAIN
 import logging
 import datetime
+from .utils import convert_statetype_value, camel_to_snake
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -50,7 +51,7 @@ class MiyoButton(ButtonEntity):
 
         self._attr_unique_id    = f"{device_id}_{state}"
         self._attr_has_entity_name = True
-        self._attr_translation_key = state
+        self._attr_translation_key = camel_to_snake(state)
 
     #
     #  ---------- HA Entity Properties ----------
@@ -78,7 +79,7 @@ class MiyoButton(ButtonEntity):
         """Associate this entity with a HA device."""
         device_info = {
             "identifiers": {(DOMAIN, self._device_id)},
-            "translation_key": self._device_type,
+            "translation_key": camel_to_snake(self._device_type)    ,
             "translation_placeholders": {"id": self._device_name},
             "manufacturer": "MIYO",
             "model": "Smart Irrigation"

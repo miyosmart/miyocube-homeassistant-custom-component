@@ -1,8 +1,13 @@
 import datetime
 import zoneinfo
 import logging
+import re
 
 _LOGGER = logging.getLogger(__name__)
+
+def camel_to_snake(name):
+    """Convert camelCase or PascalCase to snake_case."""
+    return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
 
 def parse_ws_payload(data):
     """Parse the WS payload and return a dict."""

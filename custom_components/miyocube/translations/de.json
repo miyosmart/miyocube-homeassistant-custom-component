@@ -23,7 +23,7 @@
     "circuit" : {
       "name": "Kreis: {id}"
     },
-    "moistureOutdoor": {
+    "moisture_outdoor": {
       "name": "Sensor: {id}"
     }    
   },
@@ -38,29 +38,29 @@
       "brightness": {
         "name": "Helligkeit"
       },
-      "solarVoltage": {
+      "solar_voltage": {
         "name": "Solarspannung"
       },
-      "lastUpdate": {
+      "last_update": {
         "name": "Letzte Aktualisierung"
       },
-      "circuitName": {
+      "circuit_name": {
         "name": "Bewässerungskreis"
       }
     },
     "switch": {
-      "automaticMode": {
+      "automatic_mode": {
         "name": "Automatische Bewässerung"
       },
-      "valveStaggering": {
+      "valve_staggering": {
         "name": "Ventilstaffelung"
       }
     },
     "button": {
-      "startIrrigation": {
+      "start_irrigation": {
         "name": "Bewässerung starten"
       },
-      "stopIrrigation": {
+      "stop_irrigation": {
         "name": "Bewässerung stoppen"
       }
     },
@@ -70,13 +70,13 @@
       }
     },
     "binary_sensor": {
-      "irrigationWasStarted": {
+      "irrigation_was_started": {
         "name": "Bewässerung aktiv"
       },
-      "valveStatus": {
+      "valve_status": {
         "name": "Ventil Status"
       },
-      "valve2Status": {
+      "valve2_status": {
         "name": "Ventil 2 Status"
       }
     }

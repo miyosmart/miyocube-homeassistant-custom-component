@@ -3,7 +3,7 @@ from homeassistant.components.sensor import SensorEntity
 from homeassistant.const import PERCENTAGE, UnitOfTemperature, UnitOfElectricPotential, LIGHT_LUX
 from homeassistant.core import callback
 from .const import DOMAIN
-from .utils import convert_statetype_value
+from .utils import convert_statetype_value, camel_to_snake
 
 import logging
 import datetime
@@ -76,7 +76,7 @@ class MiyoSensor(SensorEntity):
 
         self._attr_unique_id    = f"{device_id}_{state}"
         self._attr_has_entity_name = True
-        self._attr_translation_key = state
+        self._attr_translation_key = camel_to_snake(state)
 
         if init_value is not None: 
             self._state = convert_statetype_value(self._statetype, init_value)
@@ -143,7 +143,7 @@ class MiyoSensor(SensorEntity):
         """Associate this entity with a HA device."""
         device_info = {
             "identifiers": {(DOMAIN, self._device_id)},
-            "translation_key": self._device_type,
+            "translation_key": camel_to_snake(self._device_type),
             "translation_placeholders": {"id": self._device_name},
             "manufacturer": "MIYO",
             "model": "Smart Irrigation"
