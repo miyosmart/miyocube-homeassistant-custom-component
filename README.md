@@ -3,7 +3,7 @@
 
 # MIYO Cube Home Assistant Custom Component
 
-This custom component integrates your MIYO Cube smart irrigation system with Home Assistant.
+This custom component integrates your MIYO Cube smart irrigation system with Home Assistant. See [https://miyo.garden/pages/home-assistant]{https://miyo.garden/pages/home-assistant} for more info.
 
 
 
