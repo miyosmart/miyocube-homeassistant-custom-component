@@ -27,13 +27,16 @@ async def async_setup_entry(hass, entry, async_add_entities):
         for valve in valves:
             if valve.get("id"):
                 valve_id = valve["id"]
+                channel = valve.get("channel", 1)
+                valve_id = f"{valve_id}_{channel}"
+
                 valve_ip = valve["ip"]
                 valve_hardware_revision = valve.get("hardwareRevision", 0)
 
                 device_name = f"{valve_ip.replace('%zmd0', '')[-7:]}"                
 
                 if valve_hardware_revision == 1:
-                    entities.append(MiyoBinarySensor(hass, cube_id, circuit_id, valve_id, "valve", device_name, "valve2Status", valve["stateTypes"].get("valve2Status", None)))
+                    device_name = f"{device_name} - {channel}"
 
                 entities.append(MiyoBinarySensor(hass, cube_id, circuit_id, valve_id, "valve", device_name, "valveStatus", valve["stateTypes"].get("valveStatus", None)))
 
@@ -62,8 +65,9 @@ class MiyoBinarySensor(BinarySensorEntity):
         self._device_name       = device_name
         self._device_type       = device_type        
         self._circuit_id        = circuit_id
-
-        self._attr_unique_id    = f"{device_id}_{state}"
+    
+        self._attr_unique_id    = f"{self._device_id}_{state}"
+            
         self._attr_has_entity_name = True
         self._attr_translation_key = camel_to_snake(state)
 
@@ -126,8 +130,23 @@ class MiyoBinarySensor(BinarySensorEntity):
                 device_id = data["device_id"]
                 state_type = data["state_type"]
                 value = data["value"]
+                channel = self._device_id.split("_")[1] if len(self._device_id.split("_")) > 1 else "1"
 
-                if device_id == self._device_id and state_type == self._statetype:
+                # update from new valveStatus set valveStatus only for valve with channel 1
+                if state_type == "valveStatus":
+                    if device_id == self._device_id.split("_")[0] and channel == "1" and self._statetype == "valveStatus":
+                        _LOGGER.info(f"Direct update for device {device_id} update state {state_type} to {value} on {self._device_id} {self._statetype}")
+                        self._state = value
+                        self.async_write_ha_state()
+    
+                # update from new valve2Status set valveStatus only for valve with channel 2
+                elif state_type == "valve2Status":
+                    if device_id == self._device_id.split("_")[0] and channel == "2" and self._statetype == "valveStatus":
+                        _LOGGER.info(f"Direct update for device {device_id} update state {state_type} to {value} on {self._device_id} {self._statetype}")
+                        self._state = value
+                        self.async_write_ha_state()
+
+                elif device_id == self._device_id.split("_")[0] and state_type == self._statetype:
                     _LOGGER.info(f"Direct update for device {device_id} update state {state_type} to {value} on {self._device_id} {self._statetype}")
                     self._state = value
                     self.async_write_ha_state()

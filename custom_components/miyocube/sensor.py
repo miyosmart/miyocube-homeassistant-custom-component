@@ -38,11 +38,17 @@ async def async_setup_entry(hass, entry, async_add_entities):
         for valve in valves:
             if valve.get("id"):
                 valve_id = valve["id"]
+                channel = valve.get("channel", "1")
+                valve_id = f"{valve_id}_{channel}"
+
                 valve_ip = valve["ip"]
                 valve_hardware_revision = valve.get("hardwareRevision", 0)
 
                 device_name = f"{valve_ip.replace('%zmd0', '')[-7:]}"                
                 
+                if valve_hardware_revision == 1:
+                    device_name = f"{device_name} - {channel}"
+                    
                 entities.append(MiyoSensor(hass, cube_id, circuit_id, valve_id, "valve", device_name, "solarVoltage", valve["stateTypes"].get("solarVoltage", None)))
                 entities.append(MiyoSensor(hass, cube_id, circuit_id, valve_id, "valve", device_name, "lastUpdate", valve.get("lastUpdate", None)))
                 entities.append(MiyoSensor(hass, cube_id, circuit_id, valve_id, "valve", device_name, "circuitName", circuit_name))
@@ -71,10 +77,9 @@ class MiyoSensor(SensorEntity):
         self._state             = None
         self._device_name       = device_name
         self._device_type       = device_type
-        
         self._circuit_id        = circuit_id
 
-        self._attr_unique_id    = f"{device_id}_{state}"
+        self._attr_unique_id    = f"{self._device_id}_{state}"
         self._attr_has_entity_name = True
         self._attr_translation_key = camel_to_snake(state)
 
@@ -167,7 +172,7 @@ class MiyoSensor(SensorEntity):
                 state_type = data["state_type"]
                 value = data["value"]
 
-                if device_id == self._device_id and state_type == self._statetype:
+                if device_id == self._device_id.split("_")[0] and state_type == self._statetype:
                     self._state = value
                     self.async_write_ha_state()
         
